@@ -6,17 +6,23 @@ class MSTools():
         self.connected = True
         self.motors = []
 
-    def move_on_port(self, speed: int = 100, port: str = "A", time: int = 1000, degree: int = 0):
-        motor = Motor(port) # Create the motor class on the given port
-        
+    def __move_and_start__(port: str, speed: int, time: int):
+        motor = Motor(port) # Create the motor class and assign it
 
         motor.start() # Start the motor
         motor.set_default_speed(speed) # Set the speed of the motor eg: 75
-
-        motor.run_for_seconds(time, speed) # Run for the specified amount of time and speed
-        motor.run_for_degrees(degree, speed) # Run at the given degree and speed
-
+        
+        motor.run_for_time(time) # Run for the specified amount of time
         motor.stop() # Stop the motor
+
+
+    def move(self, ports: list, speeds: list, times: list):
+        for port, speed, time in zip(ports, speeds, times):
+            try:
+                self.__move_and_start__(port, speed, time)
+            except Exception:
+                return
+        
 
         
 
