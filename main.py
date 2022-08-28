@@ -1,9 +1,11 @@
 from mindstorms import MSHub, Motor
 
+a = MSHub()
+print(a.status())
+
 class MSTools():
     def __init__(self):
         self.MSHub = MSHub()
-        self.connected = True
         self.motors = []
 
     def __move_and_start__(port: str, speed: int, time: int):
@@ -21,13 +23,12 @@ class MSTools():
             try:
                 self.__move_and_start__(port, speed, time)
             except Exception:
-                return
-        
+                TypeError("Invalid arguments")
+    
 
         
-
-# Initiliaze the hub
-hub = MSHub()
+# Initiliaze the MSTools class
+hub = MSTools()
 
 # Motor Port 1 (left motor)
 motor1 = Motor('A')
